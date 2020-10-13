@@ -1,7 +1,7 @@
 const express=require('express');
 
 const port=8000;
-
+// use express router
 const app=express();
 
 app.use('/',require('./routes/index'));
