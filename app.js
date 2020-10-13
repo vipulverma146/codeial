@@ -6,6 +6,11 @@ const app=express();
 
 app.use('/',require('./routes/index'));
 
+// setup view engine
+
+app.set('view engine','ejs');
+app.set('views','./views');
+
 
 app.listen(port,function(err){
     if(err){
