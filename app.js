@@ -1,9 +1,9 @@
 const express=require('express');
 
 const port=8000;
-// use express router
-const app=express();
 
+const app=express();
+// use express router
 app.use('/',require('./routes/index'));
 
 // setup view engine
