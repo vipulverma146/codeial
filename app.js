@@ -5,6 +5,8 @@ const port=8000;
 const app=express();
 // Using express-ejs-layouts
 const expressLayout=require('express-ejs-layouts');
+// accesing db
+const db=require('./config/mongoose')
 // extract style and script from sub-pages into layout
 
 app.set("layout extractScripts", true);
