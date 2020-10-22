@@ -1,7 +1,7 @@
 const User=require('../models/user');
 
 module.exports.profile=function(req,res){
-    if(req.cookies.user_id){
+    if(req.cookies.user_id){  // checking weather user id present in cookies or not.
         User.findById(req.cookies.user_id,function(err,user){
             if(err){console.log("error",err); return}
             if(user){
@@ -87,4 +87,12 @@ module.exports.createSession=function(req,res){
 
         }
     })
+}
+
+
+// Destroy Session-Cookies
+
+module.exports.destroySession=function(req,res){
+    res.clearCookie("user_id");
+    return res.redirect('/');
 }
