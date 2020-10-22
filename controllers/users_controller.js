@@ -19,3 +19,15 @@ module.exports.signUp=function(req,res){
     });
 };
 
+// Get the sign-up data
+
+module.exports.create=function(req,res){
+    // Todo later
+}
+
+
+// Sign-In and create session
+
+module.exports.createSession=function(req,res){
+    // Todo Later
+}

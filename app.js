@@ -1,4 +1,5 @@
 const express=require('express');
+const cookieParser=require('cookie-parser');
 
 const port=8000;
 
@@ -7,8 +8,10 @@ const app=express();
 const expressLayout=require('express-ejs-layouts');
 // accesing db
 const db=require('./config/mongoose')
+// middleware for Post sign-up and sign-in form
+app.use(express.urlencoded());
+app.use(cookieParser());
 // extract style and script from sub-pages into layout
-
 app.set("layout extractScripts", true);
 app.set("layout extractStyles", true);
 //using assets folder
