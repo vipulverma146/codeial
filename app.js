@@ -21,9 +21,6 @@ app.set("layout extractStyles", true);
 //using assets folder
 app.use(express.static('./assets'));
 app.use(expressLayout);
-// passport is used
-app.use(passport.initialize());
-app.use(passport.session());
 
 
 // setup view engine
@@ -40,6 +37,12 @@ app.use(session({
         maxAge:(1000*60*100)
     }
 }));
+// passport is used
+app.use(passport.initialize());
+app.use(passport.session());
+
+app.use(passport.setAuthenticatedUser);
+
 
 // use express router
 app.use('/',require('./routes/index'));
