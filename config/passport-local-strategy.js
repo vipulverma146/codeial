@@ -4,7 +4,7 @@ const LocalStrategy = require('passport-local').Strategy;
 
 const User = require('../models/user');
 // authentication using passport
-passport.use(localStorage({
+passport.use(new LocalStrategy({
     usernameField: 'email'
 }, function (email, password, done) {
 
@@ -30,7 +30,7 @@ passport.use(localStorage({
 
 
 passport.serializeUser(function (user, done) {
-    done(null, user.id);
+   return done(null, user.id);
 
 });
 

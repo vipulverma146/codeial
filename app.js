@@ -7,7 +7,11 @@ const app=express();
 // Using express-ejs-layouts
 const expressLayout=require('express-ejs-layouts');
 // accesing db
-const db=require('./config/mongoose')
+const db=require('./config/mongoose');
+// express-session used to convert user.id into session cookies
+const session=require('express-session');
+const passport=require('passport');
+const passportLocal=require('./config/passport-local-strategy');
 // middleware for Post sign-up and sign-in form
 app.use(express.urlencoded());
 app.use(cookieParser());
@@ -17,13 +21,28 @@ app.set("layout extractStyles", true);
 //using assets folder
 app.use(express.static('./assets'));
 app.use(expressLayout);
-// use express router
-app.use('/',require('./routes/index'));
+// passport is used
+app.use(passport.initialize());
+app.use(passport.session());
+
 
 // setup view engine
 
 app.set('view engine','ejs');
 app.set('views','./views');
+
+app.use(session({
+    name:'social-app',
+    secret:'blahsometing',
+    saveUninitialized:false,
+    resave:false,
+    cookie:{
+        maxAge:(1000*60*100)
+    }
+}));
+
+// use express router
+app.use('/',require('./routes/index'));
 
 
 app.listen(port,function(err){
