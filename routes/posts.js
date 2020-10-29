@@ -6,7 +6,7 @@ const passport=require('passport');
 const postController=require('../controllers/post_Controller');
 
 
-router.post('/create',postController.create);
+router.post('/create',passport.checkAuthentication,postController.create);
 
 
 module.exports=router;
