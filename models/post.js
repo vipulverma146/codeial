@@ -7,7 +7,7 @@ const postSchema=new mongoose.Schema({
         required:true
     },
     // User schema is linked here to get the post user through ObjectId
-    User:{
+    user:{
         type:mongoose.Schema.Types.ObjectId,
         ref:'User'
 
