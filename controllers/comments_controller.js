@@ -14,11 +14,16 @@ module.exports.create=function(req,res){
         if(post){
             Comment.create({
                 content:req.body.content,
-                user:req.user._id,
-                post:req.body.post
+                post:req.body.post,
+                user:req.user._id
+                
             },function(err,comment){
+                if(err){
+                    console.log("Error in creating Comment--->",err);
+                    return;
+                }
                 // adding comment to post
-                post.comments.push(comment);
+                post.comment.push(comment);
                 post.save();
 
                 res.redirect('back');
