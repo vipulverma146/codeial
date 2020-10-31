@@ -11,7 +11,12 @@ const postSchema=new mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'User'
 
-    }
+    },
+    // need to load all the comments of post while loading so include array of cooment id's
+    comment:[{
+        type:mongoose.Schema.Types.ObjectId,
+        ref:'Comment'
+    }],
 
 },{
     timestamps:true
