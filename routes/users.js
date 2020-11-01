@@ -25,5 +25,8 @@ router.post('/create-session',passport.authenticate('local',{
 }),userController.createSession);
 
 
+router.post('/update/:id',passport.checkAuthentication,userController.update);
+
+
 
 module.exports=router;
