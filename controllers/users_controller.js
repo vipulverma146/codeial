@@ -1,15 +1,20 @@
 const User=require('../models/user');
 
 module.exports.profile=function(req,res){
-    return res.render('user_profile',{
-        title:"Profile"
+    User.findById(req.params.id,function(err,user){
+        return res.render('user_profile',{
+            title:"Profile",
+            profile_user:user
+        });
+
     });
+    
 }
 
 // User Sign-In Page
 module.exports.signIn=function(req,res){
     if(req.isAuthenticated()){
-        return res.redirect('/users/profile');
+        return res.redirect('/users/profile/:id');
 
     }
     return res.render('user_sign_in',{
@@ -21,7 +26,7 @@ module.exports.signIn=function(req,res){
 
 module.exports.signUp=function(req,res){
     if(req.isAuthenticated()){
-        return res.redirect('/users/profile');
+        return res.redirect('/users/profile/:id');
     }
     return res.render('user_sign_up',{
         title:"SignUp Page"
