@@ -1,57 +1,61 @@
 const Comment=require('../models/comments');
 const Post=require('../models/post');
 
-
-module.exports.create=function(req,res){
+// controller for adding comment to the post
+module.exports.create = async function (req, res) {
     // finding post
 
-    Post.findById(req.body.post,function(err,post){
-        if(err){
-            console.log("Error in finding Post---->",err);
-            return;
-        }
+    try{
+        let post = await Post.findById(req.body.post)
+    if (post) {
+         let comment =await Comment.create({
+            content: req.body.content,
+            post: req.body.post,
+            user: req.user._id
 
-        if(post){
-            Comment.create({
-                content:req.body.content,
-                post:req.body.post,
-                user:req.user._id
-                
-            },function(err,comment){
-                if(err){
-                    console.log("Error in creating Comment--->",err);
-                    return;
-                }
-                // adding comment to post
-                post.comment.push(comment);
-                post.save();
+        })
+        // adding comment to post
+         post.comment.push(comment);
+        post.save();
 
-                res.redirect('back');
-            });
-        }
+        res.redirect('back');
+    };
 
-
-    });
+    }catch(err){
+        console.log("Error---->",err);
+        return;
+    }
 }
+
+
+
+
+
 
 
 // creating controller to delete comment and update the Post
 
 
-module.exports.destroy=function(req,res){
+module.exports.destroy= async function(req,res){
 
-    Comment.findById(req.params.id,function(err,comment){
+    try{
+        let comment= await Comment.findById(req.params.id)
         if(comment.user==req.user.id){
             let postId=comment.post;
             comment.remove();
-            Post.findByIdAndUpdate(postId,{
+        let post= await Post.findByIdAndUpdate(postId,{
                 $pull:{comment:req.params.id}
-            },function(err,post){
+            });
                 return res.redirect('back');
-            })
+            
         }else{
             return res.redirect('back');
 
         }
-    });
+
+    }catch(err){
+        console.log("Error--->",err);
+
+    }
 }
+    

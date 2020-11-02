@@ -1,33 +1,36 @@
 const Post = require('../models/post');
-const User=require('../models/user');
+const User = require('../models/user');
 
-module.exports.home = function (req, res) {
+module.exports.home = async function (req, res) {
 
-    // Post.find({}, function (err, posts) {
-    //     console.log(req.cookies);
-    //     res.cookie('user_id', 25);
-        
+    try {
+        // finding all posts along with comments and users name
+        let posts = await Post.find({})
+            .populate('user')
+            .populate({
+                path: 'comment',
+                populate: {
+                    path: 'user'
+                }
+            })
 
-  
-
-    Post.find({})
-    .populate('user')
-    .populate({
-        path:'comment',
-        populate:{
-            path:'user'
-        }
-    })
-
-    .exec(function(err,posts){
-        User.find({},function(err,users){
-            return res.render('home', {
-                title: "Home",
-                posts: posts,
-                all_users: users
-            });
-
+     // showing all registered user on home page
+        let users = await User.find({})
+        return res.render('home', {
+            title: "Home",
+            posts: posts,
+            all_users: users
         });
-       
-    });
+
+
+
+
+    } catch (error) {
+
+        console.log("Error--->", error);
+
+    }
+
 }
+
+
