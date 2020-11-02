@@ -15,6 +15,7 @@ module.exports.create = function (req, res) {
             return;
 
         }
+        req.flash('success','Post is Successfully created');
         return res.redirect('back');
     })
 }
@@ -30,7 +31,9 @@ module.exports.destroy = function (req, res) {
             post.remove();
 
             Comment.deleteMany({ post: req.params.id }, function (err) {
+                req.flash('success','Post along with associated comments deleted!!');
                 return res.redirect('back');
+
             });
         }
         else {
