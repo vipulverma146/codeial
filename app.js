@@ -1,11 +1,13 @@
 const express=require('express');
 const cookieParser=require('cookie-parser');
+const flash=require('connect-flash');   // use for showing flash messages
 
 const port=8000;
 
 const app=express();
 // Using express-ejs-layouts
 const expressLayout=require('express-ejs-layouts');
+
 // accesing db
 const db=require('./config/mongoose');
 // express-session used to convert user.id into session cookies
@@ -59,8 +61,12 @@ app.use(session({
 // passport is used
 app.use(passport.initialize());
 app.use(passport.session());
+const customMiddleware=require('./config/middleware');
+
 
 app.use(passport.setAuthenticatedUser);
+app.use(flash());
+app.use(customMiddleware.setFlash);
 
 
 // use express router
