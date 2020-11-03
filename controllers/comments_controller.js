@@ -31,10 +31,6 @@ module.exports.create = async function (req, res) {
 
 
 
-
-
-
-
 // creating controller to delete comment and update the Post
 
 
@@ -61,4 +57,8 @@ module.exports.destroy= async function(req,res){
 
     }
 }
+
+
+
+
     

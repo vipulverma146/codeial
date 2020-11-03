@@ -15,6 +15,17 @@ module.exports.create = function (req, res) {
             return;
 
         }
+        // check if req is Ajax
+        if(req.xhr){
+            return res.status(200).json({
+                data:{
+                    post:post
+                },
+                message:'Post created !'
+            });
+        }
+
+
         req.flash('success','Post is Successfully created');
         return res.redirect('back');
     })
