@@ -10,6 +10,8 @@ const expressLayout=require('express-ejs-layouts');
 
 // accesing db
 const db=require('./config/mongoose');
+// file upload path
+app.use('/uploads',express.static(__dirname+'/uploads'));
 // express-session used to convert user.id into session cookies
 const session=require('express-session');
 const passport=require('passport');

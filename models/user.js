@@ -43,7 +43,7 @@ const userSchema=new mongoose.Schema({
     });
 
 
-    userSchema.statics.avatarPath=multer({storage:storage}).single('avatar');
+    userSchema.statics.uploadedAvatar=multer({storage:storage}).single('avatar');
 
     userSchema.statics.avatarPath=AVATAR_PATH;
         
