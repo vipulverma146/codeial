@@ -15,15 +15,16 @@ module.exports.create = function (req, res) {
             return;
 
         }
-        // check if req is Ajax
-        if(req.xhr){
-            return res.status(200).json({
-                data:{
-                    post:post
-                },
-                message:'Post created !'
-            });
-        }
+// check if req is Ajax
+        // if(req.xhr){
+        //     return res.status(200).json({
+        //         data:{
+        //             post:post
+        //         },
+        //         message:'Post created !'
+        //     });
+        //     
+        // }
 
 
         req.flash('success','Post is Successfully created');
@@ -54,7 +55,7 @@ module.exports.destroy = function (req, res) {
         
 
                 
-                req.flash('success','Post along with associated comments deleted!!');
+                req.flash('error','Post along with associated comments deleted!!');
                 return res.redirect('back');
 
             });
