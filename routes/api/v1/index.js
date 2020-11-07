@@ -7,6 +7,8 @@ const router=express.Router();
 
 router.use('/postsApi',require('./postsApi'));
 
+router.use('/usersApi',require('./usersApi'));
+
 
 
 

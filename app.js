@@ -16,6 +16,7 @@ app.use('/uploads',express.static(__dirname+'/uploads'));
 const session=require('express-session');
 const passport=require('passport');
 const passportLocal=require('./config/passport-local-strategy');
+const passportJWT =require('./config/passport-jwt-strategy');
 // used mongo-store
 const MongoStore=require('connect-mongo')(session);
 // sass middleware is used
