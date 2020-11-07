@@ -35,14 +35,15 @@ module.exports.create = function (req, res) {
 
 // creating controller for deleting Post along with comments
 
-module.exports.destroy = function (req, res) {
+module.exports.destroy =async function (req, res) {
 
-    Post.findById(req.params.id, function (err, post) {
+    try{
+        let post=await Post.findById(req.params.id); 
         //here authentication is done post.user check the user id from post model
         if (post.user == req.user.id) {    // .id means converting the object id into string
             post.remove();
 
-            Comment.deleteMany({ post: req.params.id }, function (err) {
+            await Comment.deleteMany({ post: req.params.id });
                  // check if req is Ajax
                  if(req.xhr){
                     return res.status(200).json({
@@ -58,11 +59,22 @@ module.exports.destroy = function (req, res) {
                 req.flash('error','Post along with associated comments deleted!!');
                 return res.redirect('back');
 
-            });
-        }
+            }
+        
         else {
 
-            return res.redirect('back')
+            req.flash('error',"You cannot Delete the post");
+            return res.redirect('back');
         }
-    });
+    }catch(err){
+        console.log("****** Error",err);
+
+        return res.json(500,{
+            message:"Internal Server Error"
+        });
+
+    }
+
 }
+
+   
