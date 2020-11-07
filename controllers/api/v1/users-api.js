@@ -16,7 +16,7 @@ module.exports.createSession= async function(req,res){
         return res.json(200,{
             message:"Sign-In Successfully using JWT",
             data:{
-                token:jwt.sign(user.toJSON(),'codeial',{expiresIn:'10000'})   // user.toJSON ---> convert user to json format which gets encrepted
+                token:jwt.sign(user.toJSON(),'codeial',{expiresIn:'1000000'})   // user.toJSON ---> convert user to json format which gets encrepted
             }
         });
 
