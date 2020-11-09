@@ -1,5 +1,6 @@
 const Comment=require('../models/comments');
 const Post=require('../models/post');
+const commentMailer=require('../mailers/comment_mailer');
 
 // controller for adding comment to the post
 module.exports.create = async function (req, res) {
@@ -15,8 +16,21 @@ module.exports.create = async function (req, res) {
 
         })
         // adding comment to post
-         post.comment.push(comment);
+        post.comment.push(comment);
         post.save();
+
+        comment = await comment.populate('user','name email').execPopulate();   
+         commentMailer.newComment(comment); 
+
+        // if (req.xhr){
+           
+        //     return res.status(200).json({
+        //         data: {
+        //             comment: comment
+        //         },
+        //         message: "Post created!"
+        //     });
+        // }
 
         req.flash('success','Comment is added !!');
 
@@ -24,12 +38,21 @@ module.exports.create = async function (req, res) {
     };
 
     }catch(err){
-        console.log("Error---->",err);
+        console.log("Error----> yai wala",err);  
         return;
     }
 }
 
 
+
+
+
+        
+        
+       
+
+
+       
 
 // creating controller to delete comment and update the Post
 

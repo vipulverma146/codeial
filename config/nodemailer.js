@@ -13,7 +13,6 @@ let transporter =nodemailer.createTransport({
     auth:{
         user:"vipul97219528@gmail.com",
         pass:"vipulverma"
-
     }
 }); 
 
@@ -22,7 +21,7 @@ let renderTemplate =(data,relativePath)=>{
     let mailHTML;
     ejs.renderFile
     {
-        path.join(__dirname ,'../models/mailers',relativePath ),
+        path.join(__dirname ,'../views/mailers',relativePath ),
         data,
         function(err,template){
             if(err){
