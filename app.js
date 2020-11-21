@@ -3,6 +3,8 @@ const cookieParser=require('cookie-parser');
 const flash=require('connect-flash');   // use for showing flash messages
 
 const port=8000;
+const cors = require('cors');
+
 
 const app=express();
 // Using express-ejs-layouts
@@ -19,6 +21,10 @@ const passportLocal=require('./config/passport-local-strategy');
 const passportJWT =require('./config/passport-jwt-strategy');
 const passportGoogle=require('./config/passport-google-outh2-strategy');
 const nodemailer=require('./config/nodemailer');
+app.use(cors());
+
+
+
 
 //setup the chat server to be used with Socket.io
 const chatServer = require('http').Server(app);
