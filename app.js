@@ -19,6 +19,14 @@ const passportLocal=require('./config/passport-local-strategy');
 const passportJWT =require('./config/passport-jwt-strategy');
 const passportGoogle=require('./config/passport-google-outh2-strategy');
 const nodemailer=require('./config/nodemailer');
+
+//setup the chat server to be used with Socket.io
+const chatServer = require('http').Server(app);
+const chatSockets = require('./config/Chat_sockets.js').chatSockets(chatServer);
+chatServer.listen(5000);
+console.log('chat server is lisning on port 5000');
+
+
 // used mongo-store
 const MongoStore=require('connect-mongo')(session);
 // sass middleware is used
@@ -26,13 +34,14 @@ const sassMiddleware=require('node-sass-middleware');
 app.use(sassMiddleware({
     src:'./assets/scss',
     dest:'./assets/css',
-    debug:true,
+    debug:false,
     outputStyle:'extended',
     prefix:'/css'
 }));
 
 // middleware for Post sign-up and sign-in form
 app.use(express.urlencoded());
+
 app.use(cookieParser());
 // extract style and script from sub-pages into layout
 app.set("layout extractScripts", true);
